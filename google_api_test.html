@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Google Places Autocomplete Example</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete" async defer></script>
+    <script>
+        function initAutocomplete() {
+            // Get the input element
+            var input = document.getElementById('autocomplete');
+
+            // Create the autocomplete object
+            var autocomplete = new google.maps.places.Autocomplete(input);
+
+            // Set up the event listener to log the selected place when a user selects an address
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                console.log(place); // Log the full place object to the console
+                if (!place.geometry) {
+                    alert("No details available for input: '" + place.name + "'");
+                } else {
+                    alert("Selected place: " + place.name + " at location: " + place.geometry.location);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Google Places Autocomplete Test</h1>
+    <input id="autocomplete" type="text" size="50" placeholder="Enter your address here">
+</body>
+</html>
